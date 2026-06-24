@@ -38,8 +38,8 @@ body{font-family:'Inter',sans-serif;background:var(--branco);color:var(--preto);
 .progresso-numero{font-size:11px;font-weight:600;color:var(--rosa)}
 .progresso-barra-bg{width:100%;height:1px;background:var(--cinza-borda)}
 .progresso-barra{height:1px;background:var(--rosa);transition:width 0.5s ease}
-.bloco{display:none;animation:fadeUp 0.4s ease}
-.bloco.ativo{display:block}
+.tela{display:none}
+.tela.ativa{display:block;animation:fadeUp 0.4s ease}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .pergunta-numero{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--rosa);margin-bottom:16px;display:flex;align-items:center;gap:10px}
 .pergunta-numero::after{content:'';flex:1;height:1px;background:var(--cinza-borda)}
@@ -93,7 +93,7 @@ body{font-family:'Inter',sans-serif;background:var(--branco);color:var(--preto);
 .confirmacao-icone{width:56px;height:56px;border-radius:50%;background:var(--rosa-claro);display:flex;align-items:center;justify-content:center;margin:0 auto 28px}
 .confirmacao-titulo{font-family:'Playfair Display',serif;font-size:clamp(22px,4vw,30px);font-weight:700;color:var(--preto);margin-bottom:16px;line-height:1.3}
 .confirmacao-texto{font-size:15px;font-weight:300;color:var(--cinza-texto);line-height:1.75;max-width:440px;margin:0 auto 28px}
-.confirmacao-aviso{display:inline-flex;align-items:flex-start;gap:10px;padding:16px 24px;background:var(--cinza-fundo);border-radius:2px;border-left:2px solid var(--rosa);text-align:left;max-width:480px;margin:0 auto 32px}
+.confirmacao-aviso{display:flex;align-items:flex-start;gap:10px;padding:16px 24px;background:var(--cinza-fundo);border-radius:2px;border-left:2px solid var(--rosa);text-align:left;max-width:480px;margin:0 auto 32px}
 .confirmacao-aviso span{font-size:14px;color:var(--preto);font-weight:500;line-height:1.6}
 .btn-pdf{display:inline-block;padding:18px 40px;background:var(--preto);color:var(--branco);font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:background 0.2s ease}
 .btn-pdf:hover{background:#333}
@@ -124,7 +124,7 @@ body{font-family:'Inter',sans-serif;background:var(--branco);color:var(--preto);
 <div class="container">
 <div class="quiz-wrapper">
 
-  <div class="progresso-wrapper" id="progressoWrapper">
+  <div id="progressoWrapper" style="margin-bottom:48px">
     <div class="progresso-topo">
       <span class="progresso-label">Progresso</span>
       <span class="progresso-numero" id="progressoNumero">1 de 10</span>
@@ -134,117 +134,122 @@ body{font-family:'Inter',sans-serif;background:var(--branco);color:var(--preto);
     </div>
   </div>
 
-  <div class="bloco ativo" id="p1">
-    <p class="pergunta-numero">Pergunta 01</p>
-    <h2 class="pergunta-texto">Você já investiu tempo aprendendo sobre Instagram e mesmo assim os resultados não vieram como esperava?</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,1,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Aprendi bastante e aplico, mas algo sempre trava antes de converter em cliente.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,1,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Aprendi, mas na hora de me expor ou fazer uma oferta, eu recuo sem entender por quê.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,1,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Aprendo, aplico, chego a um ponto de resultado e não consigo avançar além disso.</span></button>
+  <div class="tela ativa" id="telaQuiz">
+
+    <div id="p1">
+      <p class="pergunta-numero">Pergunta 01</p>
+      <h2 class="pergunta-texto">Você já investiu tempo aprendendo sobre Instagram e mesmo assim os resultados não vieram como esperava?</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,1,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Aprendi bastante e aplico, mas algo sempre trava antes de converter em cliente.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,1,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Aprendi, mas na hora de me expor ou fazer uma oferta, eu recuo sem entender por quê.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,1,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Aprendo, aplico, chego a um ponto de resultado e não consigo avançar além disso.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn1" onclick="avancar(1)">Próxima pergunta →</button>
     </div>
-    <button class="btn-avancar" id="btn1" onclick="avancar(1)">Próxima pergunta →</button>
+
+    <div id="p2" style="display:none">
+      <p class="pergunta-numero">Pergunta 02</p>
+      <h2 class="pergunta-texto">Quando você pensa em fazer um post de venda ou lançar um serviço, o que acontece primeiro?</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,2,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Trava. Fico reescrevendo até perder o prazo ou desistir completamente.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,2,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Faço, mas com a sensação permanente de que não está bom o suficiente.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,2,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Adio. Sempre aparece um motivo que parece legítimo para deixar para depois.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn2" onclick="avancar(2)">Próxima pergunta →</button>
+    </div>
+
+    <div id="p3" style="display:none">
+      <p class="pergunta-numero">Pergunta 03</p>
+      <h2 class="pergunta-texto">Como você descreveria sua relação com consistência no Instagram?</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,3,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Começo bem, mas perco o ritmo sem entender exatamente o que acontece.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,3,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Sou consistente quando estou inspirada. Quando não estou, simplesmente sumo.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,3,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Já fui mais consistente. Algo foi me desanimando ao longo do tempo.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn3" onclick="avancar(3)">Próxima pergunta →</button>
+    </div>
+
+    <div id="p4" style="display:none">
+      <p class="pergunta-numero">Pergunta 04</p>
+      <h2 class="pergunta-texto">Quando você imagina ser reconhecida publicamente como referência na sua área, o que sente?</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,4,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Vontade genuína, mas logo vem o pensamento de que ainda não estou pronta.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,4,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Desconforto. Parece arrogância. Fico preocupada com o que as pessoas vão pensar.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,4,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Parece distante demais. Não consigo me ver de verdade nesse lugar.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn4" onclick="avancar(4)">Próxima pergunta →</button>
+    </div>
+
+    <div id="p5" style="display:none">
+      <p class="pergunta-numero">Pergunta 05</p>
+      <h2 class="pergunta-texto">Você se mostra de verdade no seu perfil, ou mostra uma versão mais controlada e segura?</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,5,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Tento me mostrar, mas na hora de publicar edito justamente a parte mais real.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,5,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Me mostro pouco. Tenho medo do julgamento de colegas, família, pessoas próximas.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,5,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Quase não apareço. Prefiro ficar por trás do conteúdo técnico e informativo.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn5" onclick="avancar(5)">Próxima pergunta →</button>
+    </div>
+
+    <div id="p6" style="display:none">
+      <p class="pergunta-numero">Pergunta 06</p>
+      <h2 class="pergunta-texto">Quando você começa a ter mais resultado, mais clientes, mais renda, mais visibilidade, o que costuma acontecer logo depois?</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,6,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Perco consistência sem entender por quê. Paro de fazer exatamente o que estava funcionando.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,6,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Chego num teto e não consigo romper. Às vezes recuo antes de avançar mais.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,6,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Fico feliz, mas aparece uma voz dizendo que não vou conseguir manter.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn6" onclick="avancar(6)">Próxima pergunta →</button>
+    </div>
+
+    <div id="p7" style="display:none">
+      <p class="pergunta-numero">Pergunta 07</p>
+      <h2 class="pergunta-texto">Complete com o que vier primeiro: "Se eu ficar muito conhecida e ganhar muito dinheiro com meu trabalho, eu terei que..."</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,7,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Me distanciar de pessoas que amo ou enfrentar julgamentos de quem está perto.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,7,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Trabalhar muito mais do que já trabalho, e não sei se consigo sustentar isso.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,7,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Lidar com cobranças e expectativas que me assustam e para as quais não me sinto pronta.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn7" onclick="avancar(7)">Próxima pergunta →</button>
+    </div>
+
+    <div id="p8" style="display:none">
+      <p class="pergunta-numero">Pergunta 08</p>
+      <h2 class="pergunta-texto">Você aplica em você mesma o que orienta nos seus clientes?</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,8,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Pouco. Coloco sempre meus clientes na frente. Para mim fica sempre para depois.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,8,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Sei que deveria, mas é muito mais fácil enxergar no outro do que olhar para mim.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,8,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Não. Aplico no outro o que não consigo aplicar em mim. E isso me pesa.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn8" onclick="avancar(8)">Próxima pergunta →</button>
+    </div>
+
+    <div id="p9" style="display:none">
+      <p class="pergunta-numero">Pergunta 09</p>
+      <h2 class="pergunta-texto">Como era a relação da sua família com dinheiro, trabalho e prosperidade?</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,9,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Havia muito esforço para pouco resultado. Ganhar dinheiro era sinônimo de sacrifício.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,9,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Nunca se falava de dinheiro abertamente. Era um assunto pesado ou proibido.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,9,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Havia carência financeira e aprendi, mesmo sem palavras, que dinheiro é difícil e raro.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn9" onclick="avancar(9)">Próxima pergunta →</button>
+    </div>
+
+    <div id="p10" style="display:none">
+      <p class="pergunta-numero">Pergunta 10</p>
+      <h2 class="pergunta-texto">O que você acredita, no fundo, que está te impedindo de ter mais resultado?</h2>
+      <div class="opcoes">
+        <button class="opcao" onclick="selecionarOpcao(this,10,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Não sei exatamente. Tenho a sensação de que falta algo que ainda não consigo nomear.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,10,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Acho que é falta de estratégia, mas mesmo quando aprendo, não funciona como deveria.</span></button>
+        <button class="opcao" onclick="selecionarOpcao(this,10,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Sei que tem algo interno, mas é mais fácil buscar a solução lá fora do que encarar aqui dentro.</span></button>
+      </div>
+      <button class="btn-avancar" id="btn10" onclick="irParaTransicao()">Ver meu resultado →</button>
+    </div>
+
   </div>
 
-  <div class="bloco" id="p2">
-    <p class="pergunta-numero">Pergunta 02</p>
-    <h2 class="pergunta-texto">Quando você pensa em fazer um post de venda ou lançar um serviço, o que acontece primeiro?</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,2,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Trava. Fico reescrevendo até perder o prazo ou desistir completamente.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,2,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Faço, mas com a sensação permanente de que não está bom o suficiente.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,2,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Adio. Sempre aparece um motivo que parece legítimo para deixar para depois.</span></button>
-    </div>
-    <button class="btn-avancar" id="btn2" onclick="avancar(2)">Próxima pergunta →</button>
-  </div>
-
-  <div class="bloco" id="p3">
-    <p class="pergunta-numero">Pergunta 03</p>
-    <h2 class="pergunta-texto">Como você descreveria sua relação com consistência no Instagram?</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,3,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Começo bem, mas perco o ritmo sem entender exatamente o que acontece.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,3,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Sou consistente quando estou inspirada. Quando não estou, simplesmente sumo.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,3,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Já fui mais consistente. Algo foi me desanimando ao longo do tempo.</span></button>
-    </div>
-    <button class="btn-avancar" id="btn3" onclick="avancar(3)">Próxima pergunta →</button>
-  </div>
-
-  <div class="bloco" id="p4">
-    <p class="pergunta-numero">Pergunta 04</p>
-    <h2 class="pergunta-texto">Quando você imagina ser reconhecida publicamente como referência na sua área, o que sente?</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,4,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Vontade genuína, mas logo vem o pensamento de que ainda não estou pronta.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,4,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Desconforto. Parece arrogância. Fico preocupada com o que as pessoas vão pensar.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,4,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Parece distante demais. Não consigo me ver de verdade nesse lugar.</span></button>
-    </div>
-    <button class="btn-avancar" id="btn4" onclick="avancar(4)">Próxima pergunta →</button>
-  </div>
-
-  <div class="bloco" id="p5">
-    <p class="pergunta-numero">Pergunta 05</p>
-    <h2 class="pergunta-texto">Você se mostra de verdade no seu perfil, ou mostra uma versão mais controlada e segura?</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,5,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Tento me mostrar, mas na hora de publicar edito justamente a parte mais real.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,5,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Me mostro pouco. Tenho medo do julgamento de colegas, família, pessoas próximas.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,5,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Quase não apareço. Prefiro ficar por trás do conteúdo técnico e informativo.</span></button>
-    </div>
-    <button class="btn-avancar" id="btn5" onclick="avancar(5)">Próxima pergunta →</button>
-  </div>
-
-  <div class="bloco" id="p6">
-    <p class="pergunta-numero">Pergunta 06</p>
-    <h2 class="pergunta-texto">Quando você começa a ter mais resultado, mais clientes, mais renda, mais visibilidade, o que costuma acontecer logo depois?</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,6,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Perco consistência sem entender por quê. Paro de fazer exatamente o que estava funcionando.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,6,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Chego num teto e não consigo romper. Às vezes recuo antes de avançar mais.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,6,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Fico feliz, mas aparece uma voz dizendo que não vou conseguir manter.</span></button>
-    </div>
-    <button class="btn-avancar" id="btn6" onclick="avancar(6)">Próxima pergunta →</button>
-  </div>
-
-  <div class="bloco" id="p7">
-    <p class="pergunta-numero">Pergunta 07</p>
-    <h2 class="pergunta-texto">Complete com o que vier primeiro: "Se eu ficar muito conhecida e ganhar muito dinheiro com meu trabalho, eu terei que..."</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,7,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Me distanciar de pessoas que amo ou enfrentar julgamentos de quem está perto.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,7,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Trabalhar muito mais do que já trabalho, e não sei se consigo sustentar isso.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,7,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Lidar com cobranças e expectativas que me assustam e para as quais não me sinto pronta.</span></button>
-    </div>
-    <button class="btn-avancar" id="btn7" onclick="avancar(7)">Próxima pergunta →</button>
-  </div>
-
-  <div class="bloco" id="p8">
-    <p class="pergunta-numero">Pergunta 08</p>
-    <h2 class="pergunta-texto">Você aplica em você mesma o que orienta nos seus clientes?</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,8,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Pouco. Coloco sempre meus clientes na frente. Para mim fica sempre para depois.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,8,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Sei que deveria, mas é muito mais fácil enxergar no outro do que olhar para mim.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,8,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Não. Aplico no outro o que não consigo aplicar em mim. E isso me pesa.</span></button>
-    </div>
-    <button class="btn-avancar" id="btn8" onclick="avancar(8)">Próxima pergunta →</button>
-  </div>
-
-  <div class="bloco" id="p9">
-    <p class="pergunta-numero">Pergunta 09</p>
-    <h2 class="pergunta-texto">Como era a relação da sua família com dinheiro, trabalho e prosperidade?</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,9,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Havia muito esforço para pouco resultado. Ganhar dinheiro era sinônimo de sacrifício.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,9,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Nunca se falava de dinheiro abertamente. Era um assunto pesado ou proibido.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,9,'C')"><span class="opcao-letra">C</span><span class="opcao-texto">Havia carência financeira e aprendi, mesmo sem palavras, que dinheiro é difícil e raro.</span></button>
-    </div>
-    <button class="btn-avancar" id="btn9" onclick="avancar(9)">Próxima pergunta →</button>
-  </div>
-
-  <div class="bloco" id="p10">
-    <p class="pergunta-numero">Pergunta 10</p>
-    <h2 class="pergunta-texto">O que você acredita, no fundo, que está te impedindo de ter mais resultado?</h2>
-    <div class="opcoes">
-      <button class="opcao" onclick="selecionarOpcao(this,10,'A')"><span class="opcao-letra">A</span><span class="opcao-texto">Não sei exatamente. Tenho a sensação de que falta algo que ainda não consigo nomear.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,10,'B')"><span class="opcao-letra">B</span><span class="opcao-texto">Acho que é falta de estratégia, mas mesmo quando aprendo, não funciona como deveria.</span></button>
-      <button class="opcao" onclick="selecionarOpcao(this,10,'C')"><span class="opcao-texto">Sei que tem algo interno, mas é mais fácil buscar a solução lá fora do que encarar aqui dentro.</span></button>
-    </div>
-    <button class="btn-avancar" id="btn10" onclick="irParaTransicao()">Ver meu resultado →</button>
-  </div>
-
-  <div class="bloco" id="transicaoBloco">
+  <!-- TRANSIÇÃO -->
+  <div class="tela" id="telaTransicao">
     <div class="transicao-inner">
       <div class="transicao-linha-rosa"></div>
       <h2 class="transicao-titulo">Você acaba de identificar o que está travando.</h2>
@@ -265,7 +270,8 @@ body{font-family:'Inter',sans-serif;background:var(--branco);color:var(--preto);
     </div>
   </div>
 
-  <div class="bloco" id="formBloco">
+  <!-- FORMULÁRIO -->
+  <div class="tela" id="telaFormulario">
     <div class="form-topo">
       <div class="form-linha-rosa"></div>
       <h2 class="form-titulo">Suas respostas revelaram algo importante</h2>
@@ -288,12 +294,14 @@ body{font-family:'Inter',sans-serif;background:var(--branco);color:var(--preto);
     <p class="form-privacidade">Seus dados estão protegidos. Sem spam.</p>
   </div>
 
+  <!-- LOADING -->
   <div class="loading" id="loadingBloco">
     <div class="spinner"></div>
     <p>Processando sua inscrição...</p>
   </div>
 
-  <div class="bloco" id="confirmacaoBloco">
+  <!-- CONFIRMAÇÃO COM INSCRIÇÃO -->
+  <div class="tela" id="telaConfirmacao">
     <div class="confirmacao-inner">
       <div class="confirmacao-icone">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8336D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
@@ -303,12 +311,12 @@ body{font-family:'Inter',sans-serif;background:var(--branco);color:var(--preto);
       <div class="confirmacao-aviso">
         <span>Fique atenta ao seu WhatsApp. Você receberá o link do Zoom no dia do treinamento, antes das 20h.</span>
       </div>
-      <br>
       <button class="btn-pdf" onclick="gerarPDF()">Baixar meu diagnóstico em PDF</button>
     </div>
   </div>
 
-  <div class="bloco" id="confirmacaoSemBloco">
+  <!-- CONFIRMAÇÃO SEM INSCRIÇÃO -->
+  <div class="tela" id="telaConfirmacaoSem">
     <div class="confirmacao-inner">
       <div class="confirmacao-icone">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8336D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
@@ -330,15 +338,13 @@ let dadosUsuario={nome:'',email:'',whatsapp:''};
 let resultadoFinal='';
 let inscrita=false;
 
-function esconderTodos(){
-  document.querySelectorAll('.bloco').forEach(b=>b.classList.remove('ativo'));
-  document.getElementById('progressoWrapper').style.display='none';
+function mostrarTela(id){
+  document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
   document.getElementById('loadingBloco').classList.remove('ativo');
-}
-
-function mostrarBloco(id){
-  esconderTodos();
-  document.getElementById(id).classList.add('ativo');
+  const prog=document.getElementById('progressoWrapper');
+  prog.style.display=id==='telaQuiz'?'block':'none';
+  const el=document.getElementById(id);
+  if(el){el.classList.add('ativa');}
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -352,11 +358,10 @@ function selecionarOpcao(btn,numero,letra){
 }
 
 function avancar(numero){
-  document.getElementById('p'+numero).classList.remove('ativo');
+  document.getElementById('p'+numero).style.display='none';
   perguntaAtual=numero+1;
   atualizarProgresso();
-  document.getElementById('progressoWrapper').style.display='block';
-  document.getElementById('p'+(numero+1)).classList.add('ativo');
+  document.getElementById('p'+(numero+1)).style.display='block';
 }
 
 function atualizarProgresso(){
@@ -367,16 +372,16 @@ function atualizarProgresso(){
 
 function irParaTransicao(){
   resultadoFinal=calcularResultado();
-  mostrarBloco('transicaoBloco');
+  mostrarTela('telaTransicao');
 }
 
 function irParaFormulario(){
-  mostrarBloco('formBloco');
+  mostrarTela('telaFormulario');
 }
 
 function irDiretoPDF(){
   dadosUsuario={nome:'Visitante',email:'',whatsapp:''};
-  mostrarBloco('confirmacaoSemBloco');
+  mostrarTela('telaConfirmacaoSem');
 }
 
 function calcularResultado(){
@@ -420,26 +425,58 @@ function enviarFormulario(){
     B:'O medo de ser vista está destruindo seu posicionamento em silêncio.',
     C:'Você chegou num teto. E ele não é financeiro.'
   };
-  esconderTodos();
+  document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
   document.getElementById('loadingBloco').classList.add('ativo');
-  fetch(SHEET_URL,{method:'POST',body:JSON.stringify({nome:dadosUsuario.nome,email:dadosUsuario.email,whatsapp:dadosUsuario.whatsapp,resultado:nomes[resultadoFinal],pdfBaixado:'Não'})})
-  .then(()=>mostrarConfirmacao())
-  .catch(()=>mostrarConfirmacao());
-}
-
-function mostrarConfirmacao(){
-  mostrarBloco('confirmacaoBloco');
+  fetch(SHEET_URL,{method:'POST',body:JSON.stringify({
+    nome:dadosUsuario.nome,
+    email:dadosUsuario.email,
+    whatsapp:dadosUsuario.whatsapp,
+    resultado:nomes[resultadoFinal],
+    pdfBaixado:'Não'
+  })})
+  .then(()=>mostrarTela('telaConfirmacao'))
+  .catch(()=>mostrarTela('telaConfirmacao'));
 }
 
 function registrarPDFBaixado(){
   if(!inscrita)return;
-  fetch(SHEET_URL,{method:'POST',body:JSON.stringify({nome:dadosUsuario.nome,email:dadosUsuario.email,whatsapp:dadosUsuario.whatsapp,resultado:'',pdfBaixado:'Sim'})}).catch(()=>{});
+  fetch(SHEET_URL,{method:'POST',body:JSON.stringify({
+    nome:dadosUsuario.nome,
+    email:dadosUsuario.email,
+    whatsapp:dadosUsuario.whatsapp,
+    resultado:'',
+    pdfBaixado:'Sim'
+  })}).catch(()=>{});
 }
 
 const resultados={
-  A:{titulo:'Você sabe fazer. O que trava está antes do Instagram.',p1:'Você não tem problema de conhecimento. Você aprende, aplica, já chegou a ter resultado. Mas existe um padrão que aparece sempre no mesmo ponto: quando a coisa começa a andar de verdade, algo em você puxa o freio.',p2:'Isso tem um nome. Chama-se sabotagem inconsciente. E ela não aparece como preguiça nem como falta de vontade. Ela aparece como perfeccionismo, como não está bom o suficiente ainda, como uma série de motivos que parecem legítimos para adiar o que poderia te fazer crescer.',destaque:'O que está operando por baixo disso quase sempre tem origem na sua história. Na relação da sua família com dinheiro. No que você aprendeu, sem palavras, sobre o que acontece com quem se destaca.',p3:'Crescer financeiramente, ser vista, ser reconhecida: no inconsciente de muitas psicólogas isso está associado a perda. Perda de pertencimento, de vínculos, de aceitação. E enquanto isso não for identificado e trabalhado, nenhuma estratégia de Instagram vai resolver.',p4:'Você vai continuar aprendendo mais uma técnica, mais um formato, mais uma ferramenta. E o resultado vai continuar emperrando no mesmo ponto. O Instagram não é o problema. Ele está te mostrando um padrão que existe muito antes de você ter aberto seu perfil.',cta:'O cansaço com o Instagram não é falta de esforço. Postar mais não resolve. O problema é estrutural: identidade, imagem e posicionamento. No treinamento gratuito ao vivo do dia 29 de junho, às 20h, eu vou te mostrar exatamente onde está esse bloqueio e o que fazer a partir de agora.'},
-  B:{titulo:'O medo de ser vista está destruindo seu posicionamento em silêncio.',p1:'Você prefere ficar por trás do conteúdo técnico. Edita a parte mais real antes de publicar. Evita se expor quando sente que pode ser julgada. E provavelmente justifica isso como profissionalismo ou ética.',p2:'Mas o que está acontecendo na verdade é o seguinte: você não está se posicionando. Você está publicando informação. E informação, por melhor que seja, não cria conexão. Não gera lembrança. Não produz venda.',destaque:'O posicionamento real exige que você apareça como pessoa, não só como profissional. E aparecer como pessoa exige enfrentar algo que a maioria das psicólogas nunca levou para a própria terapia: o medo do julgamento público.',p3:'Esse medo não nasceu no Instagram. Ele vem de muito antes, de um lugar onde ser vista significava ser avaliada, aprovada ou reprovada. E você aprendeu, cedo, que era mais seguro se manter num lugar controlado, previsível, aceitável.',p4:'O resultado disso no Instagram é um perfil que existe mas não conecta. Que tem seguidores mas não tem clientes. Que tem conteúdo mas não tem presença. Quando você organiza isso por dentro, o que você publica muda. O tom muda. A forma como você faz uma oferta muda. E o resultado muda junto.',cta:'O cansaço com o Instagram não é falta de esforço. Postar mais não resolve. O problema é estrutural: identidade, imagem e posicionamento. No treinamento gratuito ao vivo do dia 29 de junho, às 20h, eu vou te mostrar exatamente onde está esse bloqueio e o que fazer a partir de agora.'},
-  C:{titulo:'Você chegou num teto. E ele não é financeiro.',p1:'Você já teve resultado. Já sentiu que estava funcionando. E em algum momento, sem uma razão clara, parou de avançar. Talvez tenha até recuado.',p2:'Isso é o que chamamos de teto emocional. E ele não tem nada a ver com o algoritmo do Instagram, com a frequência de posts ou com a qualidade do seu conteúdo. O teto é interno. E foi construído muito antes de você pensar em ter um perfil profissional.',destaque:'Existe uma crença que opera em silêncio dentro de muitas psicólogas altamente capacitadas: a de que crescer demais tem um custo alto demais. Que prosperar significa se afastar de quem você ama. Que ser reconhecida vai gerar cobranças para as quais você não se sente pronta.',p3:'Então você sabota. Não conscientemente. Você simplesmente para de fazer o que estava funcionando. Perde consistência. Inventa motivos para adiar. Chega no limite e recua. Isso é o inconsciente protegendo você de algo que aprendeu, lá atrás, que era perigoso.',p4:'A boa notícia é que isso não é quem você é. É o que você aprendeu. E o que se aprende pode ser reaprendido. Mas isso não se resolve com mais uma estratégia de Instagram. Se resolve quando você decide olhar para dentro com a mesma coragem que pede para os seus clientes.',cta:'O cansaço com o Instagram não é falta de esforço. Postar mais não resolve. O problema é estrutural: identidade, imagem e posicionamento. No treinamento gratuito ao vivo do dia 29 de junho, às 20h, eu vou te mostrar exatamente onde está esse bloqueio e o que fazer a partir de agora.'}
+  A:{
+    titulo:'Você sabe fazer. O que trava está antes do Instagram.',
+    p1:'Você não tem problema de conhecimento. Você aprende, aplica, já chegou a ter resultado. Mas existe um padrão que aparece sempre no mesmo ponto: quando a coisa começa a andar de verdade, algo em você puxa o freio.',
+    p2:'Isso tem um nome. Chama-se sabotagem inconsciente. E ela não aparece como preguiça nem como falta de vontade. Ela aparece como perfeccionismo, como não está bom o suficiente ainda, como uma série de motivos que parecem legítimos para adiar o que poderia te fazer crescer.',
+    destaque:'O que está operando por baixo disso quase sempre tem origem na sua história. Na relação da sua família com dinheiro. No que você aprendeu, sem palavras, sobre o que acontece com quem se destaca.',
+    p3:'Crescer financeiramente, ser vista, ser reconhecida: no inconsciente de muitas psicólogas isso está associado a perda. Perda de pertencimento, de vínculos, de aceitação. E enquanto isso não for identificado e trabalhado, nenhuma estratégia de Instagram vai resolver.',
+    p4:'Você vai continuar aprendendo mais uma técnica, mais um formato, mais uma ferramenta. E o resultado vai continuar emperrando no mesmo ponto. O Instagram não é o problema. Ele está te mostrando um padrão que existe muito antes de você ter aberto seu perfil.',
+    cta:'O cansaço com o Instagram não é falta de esforço. Postar mais não resolve. O problema é estrutural: identidade, imagem e posicionamento. No treinamento gratuito ao vivo do dia 29 de junho, às 20h, eu vou te mostrar exatamente onde está esse bloqueio e o que fazer a partir de agora. Fique atenta ao seu WhatsApp para receber o link do Zoom.'
+  },
+  B:{
+    titulo:'O medo de ser vista está destruindo seu posicionamento em silêncio.',
+    p1:'Você prefere ficar por trás do conteúdo técnico. Edita a parte mais real antes de publicar. Evita se expor quando sente que pode ser julgada. E provavelmente justifica isso como profissionalismo ou ética.',
+    p2:'Mas o que está acontecendo na verdade é o seguinte: você não está se posicionando. Você está publicando informação. E informação, por melhor que seja, não cria conexão. Não gera lembrança. Não produz venda.',
+    destaque:'O posicionamento real exige que você apareça como pessoa, não só como profissional. E aparecer como pessoa exige enfrentar algo que a maioria das psicólogas nunca levou para a própria terapia: o medo do julgamento público.',
+    p3:'Esse medo não nasceu no Instagram. Ele vem de muito antes, de um lugar onde ser vista significava ser avaliada, aprovada ou reprovada. E você aprendeu, cedo, que era mais seguro se manter num lugar controlado, previsível, aceitável.',
+    p4:'O resultado disso no Instagram é um perfil que existe mas não conecta. Que tem seguidores mas não tem clientes. Que tem conteúdo mas não tem presença. Quando você organiza isso por dentro, o que você publica muda. O tom muda. A forma como você faz uma oferta muda. E o resultado muda junto.',
+    cta:'O cansaço com o Instagram não é falta de esforço. Postar mais não resolve. O problema é estrutural: identidade, imagem e posicionamento. No treinamento gratuito ao vivo do dia 29 de junho, às 20h, eu vou te mostrar exatamente onde está esse bloqueio e o que fazer a partir de agora. Fique atenta ao seu WhatsApp para receber o link do Zoom.'
+  },
+  C:{
+    titulo:'Você chegou num teto. E ele não é financeiro.',
+    p1:'Você já teve resultado. Já sentiu que estava funcionando. E em algum momento, sem uma razão clara, parou de avançar. Talvez tenha até recuado.',
+    p2:'Isso é o que chamamos de teto emocional. E ele não tem nada a ver com o algoritmo do Instagram, com a frequência de posts ou com a qualidade do seu conteúdo. O teto é interno. E foi construído muito antes de você pensar em ter um perfil profissional.',
+    destaque:'Existe uma crença que opera em silêncio dentro de muitas psicólogas altamente capacitadas: a de que crescer demais tem um custo alto demais. Que prosperar significa se afastar de quem você ama. Que ser reconhecida vai gerar cobranças para as quais você não se sente pronta.',
+    p3:'Então você sabota. Não conscientemente. Você simplesmente para de fazer o que estava funcionando. Perde consistência. Inventa motivos para adiar. Chega no limite e recua. Isso é o inconsciente protegendo você de algo que aprendeu, lá atrás, que era perigoso.',
+    p4:'A boa notícia é que isso não é quem você é. É o que você aprendeu. E o que se aprende pode ser reaprendido. Mas isso não se resolve com mais uma estratégia de Instagram. Se resolve quando você decide olhar para dentro com a mesma coragem que pede para os seus clientes.',
+    cta:'O cansaço com o Instagram não é falta de esforço. Postar mais não resolve. O problema é estrutural: identidade, imagem e posicionamento. No treinamento gratuito ao vivo do dia 29 de junho, às 20h, eu vou te mostrar exatamente onde está esse bloqueio e o que fazer a partir de agora. Fique atenta ao seu WhatsApp para receber o link do Zoom.'
+  }
 };
 
 function carregarImagemBase64(url){
@@ -455,7 +492,7 @@ function carregarImagemBase64(url){
       resolve(canvas.toDataURL('image/jpeg',0.85));
     };
     img.onerror=reject;
-    img.src=url;
+    img.src=url+'?t='+Date.now();
   });
 }
 
@@ -466,68 +503,174 @@ async function gerarPDF(){
   const pw=210,ph=297,ml=20,mr=20,cw=170;
   let y=0;
   function addPage(){doc.addPage();y=24;}
-  function checkY(n){if(y+n>ph-20)addPage();}
+  function checkY(n){if(y+n>ph-24)addPage();}
 
+  // CAPA
   doc.setFillColor(17,17,17);
   doc.rect(0,0,pw,ph,'F');
+
+  // Foto dentro do círculo com clip
+  const fotoSize=44;
+  const fotoX=pw/2-fotoSize/2;
+  const fotoY=28;
+  const fotoR=fotoSize/2;
+  const cx=pw/2;
+  const cy=fotoY+fotoR;
+
   try{
     const imgData=await carregarImagemBase64('https://raw.githubusercontent.com/geizelimapsi/analise-perfil-instagram/main/foto-geize.jpg');
-    doc.addImage(imgData,'JPEG',pw/2-22,30,44,44,'','FAST');
-    doc.setDrawColor(232,51,109);doc.setLineWidth(0.8);doc.circle(pw/2,52,24);
-  }catch(e){}
-  y=86;
-  doc.setFillColor(232,51,109);doc.rect(pw/2-16,y,32,1.5,'F');y+=10;
-  doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(150,150,150);
-  doc.text('GEIZE LIMA · PSICÓLOGA E MENTORA',pw/2,y,{align:'center',charSpace:1.5});y+=14;
-  doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(255,255,255);
+    // Desenha círculo de clip usando addImage com recorte manual
+    doc.saveGraphicsState();
+    // Cria caminho circular para clip
+    const k=0.5523;
+    const x=cx,yyy=cy,ra=fotoR;
+    doc.lines([
+      [ra*k,0],[ra,ra-ra*k],[ra,ra]],x,yyy-ra,
+      [1,1],null,false
+    );
+    doc.addImage(imgData,'JPEG',fotoX,fotoY,fotoSize,fotoSize,'','FAST');
+    doc.restoreGraphicsState();
+    // Círculo rosa por cima como borda
+    doc.setDrawColor(232,51,109);
+    doc.setLineWidth(1.2);
+    doc.circle(cx,cy,fotoR+1.5);
+  }catch(e){
+    // fallback sem foto
+    doc.setDrawColor(232,51,109);
+    doc.setLineWidth(1.2);
+    doc.circle(cx,cy,fotoR+1.5);
+  }
+
+  y=fotoY+fotoSize+14;
+  doc.setFillColor(232,51,109);
+  doc.rect(pw/2-16,y,32,1.5,'F');
+  y+=10;
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(9);
+  doc.setTextColor(150,150,150);
+  doc.text('GEIZE LIMA · PSICÓLOGA E MENTORA',pw/2,y,{align:'center',charSpace:1.5});
+  y+=14;
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(20);
+  doc.setTextColor(255,255,255);
   const t1=doc.splitTextToSize('DIAGNÓSTICO DE PERFIL',cw);
-  doc.text(t1,pw/2,y,{align:'center'});y+=t1.length*9+4;
-  doc.setFont('helvetica','italic');doc.setFontSize(13);doc.setTextColor(232,51,109);
-  doc.text('Instagram para Psicólogas e Terapeutas',pw/2,y,{align:'center'});y+=14;
-  doc.setFillColor(232,51,109);doc.rect(pw/2-16,y,32,1.5,'F');y+=16;
-  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(120,120,120);
+  doc.text(t1,pw/2,y,{align:'center'});
+  y+=t1.length*9+4;
+
+  doc.setFont('helvetica','italic');
+  doc.setFontSize(13);
+  doc.setTextColor(232,51,109);
+  doc.text('Instagram para Psicólogas e Terapeutas',pw/2,y,{align:'center'});
+  y+=14;
+
+  doc.setFillColor(232,51,109);
+  doc.rect(pw/2-16,y,32,1.5,'F');
+  y+=16;
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(10);
+  doc.setTextColor(120,120,120);
   const nomePdf=dadosUsuario.nome&&dadosUsuario.nome!=='Visitante'?'Preparado para '+dadosUsuario.nome:'Análise personalizada';
-  doc.text(nomePdf,pw/2,y,{align:'center'});y+=8;
+  doc.text(nomePdf,pw/2,y,{align:'center'});
+  y+=8;
   doc.text('29 de junho de 2026',pw/2,y,{align:'center'});
 
-  doc.addPage();y=24;
-  doc.setFillColor(232,51,109);doc.rect(ml,y,20,1.5,'F');y+=10;
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,51,109);
-  doc.text('SEU DIAGNÓSTICO',ml,y,{charSpace:2});y+=14;
-  doc.setFont('helvetica','bold');doc.setFontSize(17);doc.setTextColor(17,17,17);
-  const tR=doc.splitTextToSize(r.titulo,cw);doc.text(tR,ml,y);y+=tR.length*8+12;
-  doc.setDrawColor(232,232,232);doc.setLineWidth(0.3);doc.line(ml,y,pw-mr,y);y+=14;
+  // PÁGINA 2 - RESULTADO
+  doc.addPage();
+  y=24;
+
+  doc.setFillColor(232,51,109);
+  doc.rect(ml,y,20,1.5,'F');
+  y+=10;
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(8);
+  doc.setTextColor(232,51,109);
+  doc.text('SEU DIAGNÓSTICO',ml,y,{charSpace:2});
+  y+=14;
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(17);
+  doc.setTextColor(17,17,17);
+  const tR=doc.splitTextToSize(r.titulo,cw);
+  doc.text(tR,ml,y);
+  y+=tR.length*8+12;
+
+  doc.setDrawColor(232,232,232);
+  doc.setLineWidth(0.3);
+  doc.line(ml,y,pw-mr,y);
+  y+=14;
 
   function paragrafo(txt){
-    doc.setFont('helvetica','normal');doc.setFontSize(10.5);doc.setTextColor(80,80,80);
-    const ls=doc.splitTextToSize(txt,cw);checkY(ls.length*6+10);
-    doc.text(ls,ml,y);y+=ls.length*6+10;
+    doc.setFont('helvetica','normal');
+    doc.setFontSize(10.5);
+    doc.setTextColor(80,80,80);
+    const ls=doc.splitTextToSize(txt,cw);
+    checkY(ls.length*6+10);
+    doc.text(ls,ml,y);
+    y+=ls.length*6+10;
   }
+
   function destaque(txt){
-    doc.setFont('helvetica','italic');doc.setFontSize(10.5);doc.setTextColor(17,17,17);
+    doc.setFont('helvetica','italic');
+    doc.setFontSize(10.5);
+    doc.setTextColor(17,17,17);
     const ls=doc.splitTextToSize(txt,cw-16);
-    const h=ls.length*6+18;checkY(h+6);
-    doc.setFillColor(253,232,239);doc.rect(ml,y-6,cw,h,'F');
-    doc.setFillColor(232,51,109);doc.rect(ml,y-6,2.5,h,'F');
-    doc.text(ls,ml+8,y+2);y+=h+10;
+    const h=ls.length*6+18;
+    checkY(h+6);
+    doc.setFillColor(253,232,239);
+    doc.rect(ml,y-6,cw,h,'F');
+    doc.setFillColor(232,51,109);
+    doc.rect(ml,y-6,2.5,h,'F');
+    doc.text(ls,ml+8,y+2);
+    y+=h+10;
   }
 
-  paragrafo(r.p1);paragrafo(r.p2);destaque(r.destaque);paragrafo(r.p3);paragrafo(r.p4);
+  paragrafo(r.p1);
+  paragrafo(r.p2);
+  destaque(r.destaque);
+  paragrafo(r.p3);
+  paragrafo(r.p4);
 
-  checkY(70);
+  // BLOCO CTA TREINAMENTO
+  checkY(80);
   const ctaLS=doc.splitTextToSize(r.cta,cw-16);
-  const ctaH=ctaLS.length*6+36;
-  doc.setFillColor(17,17,17);doc.rect(ml,y,cw,ctaH,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(232,51,109);
-  doc.text('PRÓXIMO PASSO',ml+8,y+12,{charSpace:1.5});
-  doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(210,210,210);
-  doc.text(ctaLS,ml+8,y+22);y+=ctaH+6;
-  checkY(16);
-  doc.setFont('helvetica','bold');doc.setFontSize(10);doc.setTextColor(232,51,109);
-  doc.text('29 de junho · 20h · Ao vivo e gratuito',ml,y);y+=16;
-  checkY(16);
-  doc.setDrawColor(232,232,232);doc.setLineWidth(0.3);doc.line(ml,y,pw-mr,y);y+=8;
-  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.setTextColor(180,180,180);
+  const ctaH=ctaLS.length*6+44;
+  doc.setFillColor(17,17,17);
+  doc.rect(ml,y,cw,ctaH,'F');
+
+  doc.setFillColor(232,51,109);
+  doc.rect(ml,y,cw,6,'F');
+
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(9);
+  doc.setTextColor(255,255,255);
+  doc.text('PRÓXIMO PASSO PARA VOCÊ',ml+8,y+18,{charSpace:1});
+
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(10);
+  doc.setTextColor(200,200,200);
+  doc.text(ctaLS,ml+8,y+28);
+
+  y+=ctaH+8;
+  checkY(14);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(10);
+  doc.setTextColor(232,51,109);
+  doc.text('29 de junho · 20h · Ao vivo e gratuito',ml,y);
+  y+=16;
+
+  // RODAPÉ
+  checkY(14);
+  doc.setDrawColor(232,232,232);
+  doc.setLineWidth(0.3);
+  doc.line(ml,y,pw-mr,y);
+  y+=8;
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(8);
+  doc.setTextColor(180,180,180);
   doc.text('Geize Lima · @geizeliima · geizelimapsi.github.io/analise-perfil-instagram',pw/2,y,{align:'center'});
 
   doc.save('diagnostico-perfil-instagram-geize-lima.pdf');
